@@ -47,7 +47,7 @@ export default function App() {
 
   return (
     <Wrap>
-      <Section title={`Phonebook`}></Section>
+      <Section title={`Phonebooker`}></Section>
       <ContactForm handleSubmit={handleSubmit} />
       <Section title={`Contacts`}>
         <Filter filter={filter} filterContact={filterContact} />
