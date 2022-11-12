@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react';
-import { nanoid } from 'nanoid';
 import { Section } from './Section/Section';
 import { Filter } from './Filter/Filter';
 import { ContactsList } from './ContactsList/ContactsList';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Wrap } from './App.styled';
+import { nanoid } from 'nanoid';
+//
+import { useDispatch, useSelector } from 'react-redux';
+import { update } from '../redux/store';
+//
 
 export default function App() {
   const [contacts, setContacts] = useState(() => {
@@ -45,9 +49,15 @@ export default function App() {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
+  const numberOfClicks = useSelector(state => state.contacts);
+  console.log(numberOfClicks);
+
+  const dispatch = useDispatch();
+  console.log(update);
+
   return (
     <Wrap>
-      <Section title={`Phonebooker`}></Section>
+      <Section title={`Phonebook`}></Section>
       <ContactForm handleSubmit={handleSubmit} />
       <Section title={`Contacts`}>
         <Filter filter={filter} filterContact={filterContact} />
