@@ -14,9 +14,7 @@ const initialState = checkLS();
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: '',
-    redusers: {
-      addstring()
-  },
+  redusers: {},
 });
 
 export const store = configureStore({
