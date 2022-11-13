@@ -6,7 +6,7 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { Wrap } from './App.styled';
 import { nanoid } from 'nanoid';
 //
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { update } from '../redux/store';
 //
 
@@ -39,9 +39,11 @@ export default function App() {
       : setContacts([name, ...contacts]);
   };
 
+  const dispatch = useDispatch();
   const handleSubmit = (values, { resetForm }) => {
     values.id = nanoid();
     addContact(values);
+    dispatch(update(values));
     resetForm();
   };
 
@@ -49,10 +51,6 @@ export default function App() {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]);
 
-  const numberOfClicks = useSelector(state => state.contacts);
-  console.log(numberOfClicks);
-
-  const dispatch = useDispatch();
   console.log(update);
 
   return (
