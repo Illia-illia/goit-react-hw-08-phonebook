@@ -1,35 +1,40 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
-const getContactsLS = localStorage.getItem('contacts');
+import { contactsSlice } from './contactsSlice';
+import { filterSlice } from './filterSlice';
 
-const checkLS = () => {
-  if (getContactsLS) {
-    return JSON.parse(getContactsLS);
-  } else {
-    return [];
-  }
+const persistConfig = {
+  key: 'contacts',
+  storage,
 };
 
-const initialState = checkLS();
-console.log(initialState);
-
-const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState,
-  reducers: {
-    update: {
-      reducer(state, action) {
-        state.push(action.payload);
-      },
-    },
-  },
-});
+const persistedContacts = persistReducer(persistConfig, contactsSlice.reducer);
 
 export const store = configureStore({
   reducer: {
-    contacts: contactsSlice.reducer,
+    phonebook: persistedContacts,
+    filter: filterSlice.reducer,
+  },
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    });
   },
 });
 
-export const { update } = contactsSlice.actions;
+export const filterValue = state => state.filter;
+export const contactValue = state => state.phonebook.contacts;
+export const persistor = persistStore(store);
