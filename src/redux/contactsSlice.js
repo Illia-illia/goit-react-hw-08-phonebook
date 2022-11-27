@@ -1,13 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { fetchContacts, addContact, deleteContact } from './operations';
-import {
-  FetchContactsReducer,
-  AddContactReducer,
-  DeleteContactReducer,
-  anyFulfilledReducer,
-  anyPendingReducer,
-  anyRejectedReducer,
-} from './reducers';
+import * as reducers from './reducers';
 
 const actions = [fetchContacts, addContact, deleteContact];
 
@@ -26,12 +19,18 @@ const contactSlice = createSlice({
   initialState,
   extraReducers: builder =>
     builder
-      .addCase(fetchContacts.fulfilled, FetchContactsReducer)
-      .addCase(addContact.fulfilled, AddContactReducer)
-      .addCase(deleteContact.fulfilled, DeleteContactReducer)
-      .addMatcher(isAnyOf(...getActions('fulfilled')), anyFulfilledReducer)
-      .addMatcher(isAnyOf(...getActions('pending')), anyPendingReducer)
-      .addMatcher(isAnyOf(...getActions('rejected')), anyRejectedReducer),
+      .addCase(fetchContacts.fulfilled, reducers.FetchContactsReducer)
+      .addCase(addContact.fulfilled, reducers.AddContactReducer)
+      .addCase(deleteContact.fulfilled, reducers.DeleteContactReducer)
+      .addMatcher(
+        isAnyOf(...getActions('fulfilled')),
+        reducers.anyFulfilledReducer
+      )
+      .addMatcher(isAnyOf(...getActions('pending')), reducers.anyPendingReducer)
+      .addMatcher(
+        isAnyOf(...getActions('rejected')),
+        reducers.anyRejectedReducer
+      ),
 });
 
 export const contactsReducer = contactSlice.reducer;
