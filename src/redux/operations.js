@@ -24,10 +24,21 @@ export const addContact = createAsyncThunk(
         name: contact.name,
         phone: contact.phone,
       });
-      console.log('submit contact', contact);
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
+    }
+  }
+);
+
+export const deleteContact = createAsyncThunk(
+  'contacts/deleteContact',
+  async (contactId, thunkApi) => {
+    try {
+      const response = await axios.delete(`/contacts/${contactId}`);
+      return response.data;
+    } catch (e) {
+      return thunkApi.rejectWithValue(e.message);
     }
   }
 );

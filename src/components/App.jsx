@@ -7,9 +7,9 @@ import { Wrap } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   selectContacts,
-  selectFilter,
   selectisLoading,
   selectError,
+  selectFilteredContacts,
 } from '../redux/selectors';
 import { fetchContacts, addContact } from '../redux/operations';
 import { useEffect } from 'react';
@@ -20,15 +20,7 @@ export default function App() {
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectisLoading);
   const error = useSelector(selectError);
-  const filter = useSelector(selectFilter);
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
-  const onFiltredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const filter = useSelector(selectFilteredContacts);
 
   const newContact = name => {
     contacts.find(
@@ -40,9 +32,12 @@ export default function App() {
 
   const handleSubmit = (values, { resetForm }) => {
     newContact(values);
-    console.log('values', values);
     resetForm();
   };
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <Wrap>
@@ -50,9 +45,9 @@ export default function App() {
       <ContactForm handleSubmit={handleSubmit} />
       <Section title={`Contacts`}>
         <Filter />
-        {isLoading && <p>Loading tasks...</p>}
+        {isLoading && <p>Loading contacts...</p>}
         {error && <p>{error}</p>}
-        {contacts.length > 0 && <ContactsList contacts={onFiltredContacts} />}
+        {contacts.length > 0 && <ContactsList contacts={filter} />}
       </Section>
     </Wrap>
   );
