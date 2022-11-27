@@ -7,10 +7,10 @@ export const ContactsList = ({ contacts }) => {
   const dispatch = useDispatch();
   return (
     <List>
-      {contacts.map(({ id, name, number }) => {
+      {contacts.map(({ id, name, phone }) => {
         return (
           <Item key={id}>
-            {name}: {number}
+            {name}: {phone}
             {/* <Button type="button" onClick={() => dispatch(deleted(id))}>
               Delete
             </Button> */}
@@ -26,7 +26,7 @@ List.propTypes = {
     PropTypes.exact({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      number: PropTypes.number.isRequired,
+      phone: PropTypes.number.isRequired,
     })
   ),
 };

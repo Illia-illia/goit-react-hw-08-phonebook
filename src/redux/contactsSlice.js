@@ -7,14 +7,13 @@ const initialState = {
     isLoading: false,
     error: null,
   },
-  filter: '',
 };
 
 const contactSlice = createSlice({
   name: 'contacts',
   initialState,
   extraReducers: {
-    [fetchContacts.pending](state, action) {
+    [fetchContacts.pending](state) {
       state.contacts.isLoading = true;
     },
     [fetchContacts.fulfilled](state, action) {
@@ -29,6 +28,4 @@ const contactSlice = createSlice({
   },
 });
 
-export const { fetchingInProgress, fetchingSuccess, fetchingError } =
-  contactSlice.actions;
 export const contactsReducer = contactSlice.reducer;
