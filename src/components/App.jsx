@@ -6,30 +6,34 @@ import { Wrap } from './App.styled';
 import { nanoid } from 'nanoid';
 //
 import { useDispatch, useSelector } from 'react-redux';
-import { add } from '../redux/contactsSlice';
-import { filterValue, contactValue } from 'redux/store';
+import { getContacts } from '../redux/selectors';
+import { fetchContacts } from '../redux/operations';
+import { useEffect } from 'react';
 //
 
 export default function App() {
   const dispatch = useDispatch();
-  const contacts = useSelector(contactValue);
-  const filter = useSelector(filterValue);
+  const { items, isLoading, error } = useSelector(getContacts);
 
-  const onFiltredContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
-  const addContact = name => {
-    contacts.find(
-      contact => contact.name.toLowerCase() === name.name.toLowerCase()
-    )
-      ? alert(`${name.name} is already in contacts`)
-      : dispatch(add(name));
-  };
+  // const onFiltredContacts = contacts.filter(contact =>
+  //   contact.name.toLowerCase().includes(filter.toLowerCase())
+  // );
+
+  // const addContact = name => {
+  //   contacts.find(
+  //     contact => contact.name.toLowerCase() === name.name.toLowerCase()
+  //   )
+  //     ? alert(`${name.name} is already in contacts`)
+  //     : dispatch(add(name));
+  // };
 
   const handleSubmit = (values, { resetForm }) => {
     values.id = nanoid();
-    addContact(values);
+    // addContact(values);
     resetForm();
   };
 
@@ -39,8 +43,13 @@ export default function App() {
       <ContactForm handleSubmit={handleSubmit} />
       <Section title={`Contacts`}>
         <Filter />
-        <ContactsList contacts={onFiltredContacts} />
+        {/* <ContactsList contacts={onFiltredContacts} /> */}
       </Section>
+      <div>
+        {isLoading && <p>Loading tasks...</p>}
+        {error && <p>{error}</p>}
+        <p>{items.length > 0 && JSON.stringify(items, null, 2)}</p>
+      </div>
     </Wrap>
   );
 }
