@@ -1,7 +1,7 @@
 import { Label, FindInput } from './Filter.styled';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { filterChange } from '../../redux/filterSlice';
+import { filterChange } from '../../redux/contacts/filterSlice';
 
 export const Filter = () => {
   const dispatch = useDispatch();

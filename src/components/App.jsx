@@ -10,8 +10,8 @@ import {
   selectisLoading,
   selectError,
   selectFilteredContacts,
-} from '../redux/selectors';
-import { fetchContacts, addContact } from '../redux/operations';
+} from '../redux/contacts/selectors';
+import { fetchContacts, addContact } from '../redux/contacts/operations';
 import { useEffect } from 'react';
 //
 
