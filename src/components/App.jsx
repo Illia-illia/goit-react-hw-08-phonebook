@@ -1,54 +1,54 @@
-import { Section } from './Section/Section';
-import { Filter } from './Filter/Filter';
-import { ContactsList } from './ContactsList/ContactsList';
-import { ContactForm } from './ContactForm/ContactForm';
-import { Wrap } from './App.styled';
-//
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectContacts,
-  selectisLoading,
-  selectError,
-  selectFilteredContacts,
-} from '../redux/contacts/selectors';
-import { fetchContacts, addContact } from '../redux/contacts/operations';
-import { useEffect } from 'react';
-//
+import { useEffect, lazy } from 'react';
+import { useDispatch } from 'react-redux';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import { PrivateRoute } from './PrivateRoute';
+import { RestrictedRoute } from './RestrictedRoute';
+import { refreshUser } from 'redux/auth/operation';
+import { useAuth } from 'hooks/useAuth';
 
-export default function App() {
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contacts'));
+
+export const App = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
-  const isLoading = useSelector(selectisLoading);
-  const error = useSelector(selectError);
-  const filter = useSelector(selectFilteredContacts);
-
-  const newContact = name => {
-    contacts.find(
-      contact => contact.name.toLowerCase() === name.name.toLowerCase()
-    )
-      ? alert(`${name.name} is already in contacts`)
-      : dispatch(addContact(name));
-  };
-
-  const handleSubmit = (values, { resetForm }) => {
-    newContact(values);
-    resetForm();
-  };
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <Wrap>
-      <Section title={`Phonebook`}></Section>
-      <ContactForm handleSubmit={handleSubmit} />
-      <Section title={`Contacts`}>
-        <Filter />
-        {isLoading && <p>Loading contacts...</p>}
-        {error && <p>{error}</p>}
-        {contacts.length > 0 && <ContactsList contacts={filter} />}
-      </Section>
-    </Wrap>
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <RestrictedRoute redirectTo="/contacts" component={<LoginPage />} />
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
+          }
+        />
+        <Route path="*" element={<HomePage />} />
+      </Route>
+    </Routes>
   );
-}
+};
