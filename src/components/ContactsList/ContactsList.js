@@ -7,10 +7,10 @@ export const ContactsList = ({ contacts }) => {
   const dispatch = useDispatch();
   return (
     <List>
-      {contacts.map(({ id, name, phone }) => {
+      {contacts.map(({ id, name, number }) => {
         return (
           <Item key={id}>
-            {name}: {phone}
+            {name}: {number}
             <Button type="button" onClick={() => dispatch(deleteContact(id))}>
               Delete
             </Button>

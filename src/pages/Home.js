@@ -1,12 +1,15 @@
+import { Box, Text } from '@chakra-ui/react';
+import { Helmet } from 'react-helmet';
+
 export default function Home() {
   return (
-    <div>
-      <h1>
-        Task manager welcome page{' '}
-        <span role="img" aria-label="Greeting icon">
-          💁‍♀️
-        </span>
-      </h1>
-    </div>
+    <Box paddingTop="20px">
+      <Helmet>
+        <title>Save Contacts</title>
+      </Helmet>
+      <Text margin="15px" fontWeight="bold">
+        Save your contacts
+      </Text>
+    </Box>
   );
 }
