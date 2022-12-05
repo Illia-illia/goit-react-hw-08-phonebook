@@ -3,9 +3,10 @@ import { Box, Text } from '@chakra-ui/react';
 
 export const AuthNav = () => {
   return (
-    <Box display="flex">
+    <Box display="flex" marginBottom="10px">
       <NavLink to="/register">
         <Text
+          backgroundColor="#f5f5f5"
           marginLeft="15px"
           marginRight="10px"
           fontSize="large"
@@ -23,6 +24,7 @@ export const AuthNav = () => {
       </NavLink>
       <NavLink to="/login">
         <Text
+          backgroundColor="#f5f5f5"
           width="85px"
           textAlign="center"
           fontSize="large"

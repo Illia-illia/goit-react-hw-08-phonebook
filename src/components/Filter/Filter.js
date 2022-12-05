@@ -11,8 +11,12 @@ export const Filter = () => {
 
   return (
     <Label>
-      Find contacts by name
-      <FindInput type="text" name="filter" onChange={onWrite} />
+      <FindInput
+        type="text"
+        name="filter"
+        placeholder="Find contacts by name"
+        onChange={onWrite}
+      />
     </Label>
   );
 };

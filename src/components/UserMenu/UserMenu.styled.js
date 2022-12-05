@@ -6,16 +6,16 @@ export const Button = styled.button`
   background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
   background-color: #ededed;
   border-radius: 4px;
-  border: 2px solid #dcdcdc;
+  /* border: 2px solid #dcdcdc; */
   display: inline-block;
   cursor: pointer;
   color: #212121;
   font-family: Arial;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: bold;
-  padding: 10px 10px;
+  padding: 10px 12px;
   text-decoration: none;
-  margin: 10px 0;
+  margin: 15px 0;
 
   &:hover {
     background: linear-gradient(to bottom, #212121 5%, #ededed 100%);

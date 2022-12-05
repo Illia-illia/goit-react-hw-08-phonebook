@@ -8,6 +8,8 @@ export const Navigation = () => {
     <Box display="flex" alignItems="center" padding="15px">
       <NavLink to="/">
         <Box
+          margin="10px"
+          backgroundColor="#f5f5f5"
           as="button"
           p={3}
           color="black"
@@ -26,6 +28,7 @@ export const Navigation = () => {
       {isLoggedIn && (
         <NavLink to="/contacts">
           <Box
+            backgroundColor="#f5f5f5"
             as="button"
             p={3}
             color="black"
