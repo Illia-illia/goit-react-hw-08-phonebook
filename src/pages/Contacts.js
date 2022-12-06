@@ -41,10 +41,9 @@ export default function App() {
 
   return (
     <Wrap>
-      <Section title={`Add Contact`}></Section>
       <ContactForm handleSubmit={handleSubmit} />
+      <Filter />
       <Section title={`Contacts list`}>
-        <Filter />
         {isLoading && <p>Loading contacts...</p>}
         {error && <p>{error}</p>}
         {contacts.length > 0 && <ContactsList contacts={filter} />}

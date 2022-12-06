@@ -7,4 +7,5 @@ export const Title = styled.h2`
   line-height: 1.15;
   font-weight: 700;
   letter-spacing: 0.03em;
+  text-align: center;
 `;

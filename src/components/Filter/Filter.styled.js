@@ -8,7 +8,7 @@ export const Label = styled.label`
 `;
 
 export const FindInput = styled.input`
-  all: unset;
+  width: 95%;
   display: flex;
   border: 2px solid black;
   margin: 10px 0;
