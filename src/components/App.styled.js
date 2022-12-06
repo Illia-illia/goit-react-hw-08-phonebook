@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
-  margin: 16px;
+  display: block;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
 `;

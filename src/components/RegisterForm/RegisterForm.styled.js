@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 export const Form = styled.form`
-  width: 450px;
-  display: block;
   padding: 15px;
-  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Label = styled.label`
@@ -18,6 +19,7 @@ export const Input = styled.input`
   all: unset;
   display: flex;
   border: 2px solid black;
+  border-radius: 10px;
   margin: 10px 0;
   padding: 15px;
   font-size: 20px;
