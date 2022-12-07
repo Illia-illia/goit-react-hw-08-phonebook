@@ -11,7 +11,7 @@ export const FindInput = styled.input`
   width: 95%;
   display: flex;
   border: 2px solid black;
-  margin: 10px 0;
+  margin: 10px auto;
   padding: 15px;
   font-size: 20px;
   &:focus-visible {
